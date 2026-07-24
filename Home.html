@@ -60,7 +60,9 @@
   }
   header.scrolled{box-shadow:0 4px 20px -10px rgba(0,0,0,.8);}
   nav{display:flex;align-items:center;padding:20px 32px;max-width:var(--maxw);margin:0 auto; justify-content: space-between;}
-  .logo{font-weight:700;font-size:17px;color:var(--ink); letter-spacing: -0.02em;}
+  
+  .logo{font-weight:700;font-size:17px;color:var(--ink); letter-spacing: -0.02em; display:flex; align-items:center; gap:8px;}
+  .logo svg { width: 22px; height: 22px; fill: var(--accent); }
   
   .nav-motto { font-size: 14.5px; font-weight: 500; color: var(--gray); font-style: italic; }
 
@@ -100,10 +102,11 @@
     100% { opacity: 1; transform: scale(1); }
   }
 
+  /* Brighter hero images with lower opacity overlay */
   .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(10,10,10,0.6) 0%, var(--bg) 100%);
+    background: linear-gradient(180deg, rgba(10,10,10,0.2) 0%, var(--bg) 100%);
     z-index: 1;
   }
 
@@ -157,7 +160,7 @@
     gap: 20px;
     padding-left: 20px;
     white-space: nowrap;
-    animation: scrollMarquee 25s linear infinite;
+    animation: scrollMarquee 20s linear infinite;
   }
   .marquee-item {
     background: var(--panel);
@@ -209,7 +212,8 @@
   
   .tab-title { font-size:28px; font-weight:700; margin-bottom: 30px; color:var(--ink); }
   
-  /* Sub-categories inside tabs */
+  /* Sections for smooth scrolling */
+  #shop-start, #cat-diy, #bulk-orders, #custom-cta { scroll-margin-top: 100px; }
   .sub-category { margin-bottom: 50px; }
   .sub-category h4 { 
     font-size: 18px; 
@@ -328,7 +332,7 @@
   
   .modal-box {
     background: var(--panel); border: 1px solid var(--line); border-radius: 12px;
-    max-width: 850px; width: 100%; display: flex; position: relative; overflow: hidden;
+    max-width: 900px; width: 100%; display: flex; position: relative; overflow: hidden;
     transform: translateY(20px); transition: transform .3s ease;
   }
   .modal-overlay.open .modal-box { transform: translateY(0); }
@@ -341,9 +345,37 @@
   }
   .modal-close:hover { background: var(--accent); border-color: var(--accent); }
   
-  .modal-left { flex: 1.1; background: var(--panel-2); min-height: 400px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
-  .modal-left img { width: 100%; height: 100%; object-fit: cover; }
+  .modal-left { 
+    flex: 1.2; 
+    background: var(--panel-2); 
+    min-height: 450px; 
+    display: flex; 
+    flex-direction: column;
+    padding: 24px;
+    border-right: 1px solid var(--line);
+  }
+  .m-main-img-wrap {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+    overflow: hidden;
+  }
+  /* Aspect ratio fixed by using object-fit contain */
+  .m-main-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
   
+  .m-thumbs {
+    display: flex; gap: 10px; height: 60px; justify-content: center;
+  }
+  .m-thumbs img {
+    height: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer;
+    border: 2px solid transparent; border-radius: 6px; transition: 0.2s;
+    background: var(--bg);
+  }
+  .m-thumbs img:hover, .m-thumbs img.active { border-color: var(--accent); }
+
   .modal-right { flex: 1; padding: 40px 32px; display: flex; flex-direction: column; overflow-y: auto; max-height: 90vh;}
   .modal-right h3 { font-size: 26px; font-weight: 700; margin-bottom: 8px; line-height: 1.2; }
   .modal-stars { color: var(--accent); font-size: 14px; letter-spacing: 2px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
@@ -503,7 +535,7 @@
     .f-grid{grid-template-columns:1fr 1fr;}
     
     .modal-box { flex-direction: column; max-height: 90vh; }
-    .modal-left { min-height: 250px; flex: none; }
+    .modal-left { min-height: 250px; flex: none; border-right: none; border-bottom: 1px solid var(--line);}
     .redirect-box { padding: 40px 30px; }
   }
   @media(max-width:680px){
@@ -524,7 +556,13 @@
 
 <header id="siteHeader">
   <nav>
-    <a href="#" class="logo">Forged 3D prints</a>
+    <a href="#" class="logo">
+      <!-- Added Logo Icon -->
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+      </svg>
+      Forged 3D prints
+    </a>
     <div class="nav-motto">Your Imagination, Forged in Reality</div>
   </nav>
 </header>
@@ -536,6 +574,7 @@
     <img src="https://images.unsplash.com/photo-1613511874457-30752103328e?auto=format&fit=crop&w=1600&q=80" alt="3D Print 2">
     <img src="https://images.unsplash.com/photo-1518199268839-3ce1a5f6e80b?auto=format&fit=crop&w=1600&q=80" alt="3D Print 3">
   </div>
+  <!-- Opacity reduced in CSS to make background images more visible -->
   <div class="hero-overlay"></div>
   <div class="hero-text rv">
     <h1>Your Vision,<br> 3D Printed.</h1>
@@ -548,247 +587,228 @@
   <div class="marquee-title">Our happy count!</div>
   <div class="marquee-container">
     <div class="marquee-track">
-      <div class="marquee-item">Keychain - 50 happy customers</div>
-      <div class="marquee-item">Planters - 120 happy customers</div>
-      <div class="marquee-item">Custom Trophies - 45 happy customers</div>
-      <div class="marquee-item">Drone Mounts - 80 happy customers</div>
-      <div class="marquee-item">Desk Coasters - 200+ happy customers</div>
-      <div class="marquee-item">Robotic Arm Kit - 65 happy customers</div>
+      <!-- Shorter list, updated numbers -->
+      <div class="marquee-item">Keychain - 150 happy customers</div>
+      <div class="marquee-item">Planters - 42 happy customers</div>
+      <div class="marquee-item">Custom Trophies - 38 happy customers</div>
+      <div class="marquee-item">Drone Mounts - 45 happy customers</div>
+      <div class="marquee-item">Lamps - 33 happy customers</div>
       
-      <div class="marquee-item">Keychain - 50 happy customers</div>
-      <div class="marquee-item">Planters - 120 happy customers</div>
-      <div class="marquee-item">Custom Trophies - 45 happy customers</div>
-      <div class="marquee-item">Drone Mounts - 80 happy customers</div>
-      <div class="marquee-item">Desk Coasters - 200+ happy customers</div>
-      <div class="marquee-item">Robotic Arm Kit - 65 happy customers</div>
+      <!-- Duplicated for seamless loop -->
+      <div class="marquee-item">Keychain - 150 happy customers</div>
+      <div class="marquee-item">Planters - 42 happy customers</div>
+      <div class="marquee-item">Custom Trophies - 38 happy customers</div>
+      <div class="marquee-item">Drone Mounts - 45 happy customers</div>
+      <div class="marquee-item">Lamps - 33 happy customers</div>
     </div>
   </div>
 </section>
 
 <!-- ============ SHOP LAYOUT ============ -->
 <div class="shop-container" id="products">
+  <!-- Original Sidebar Restored -->
   <aside class="sidebar rv">
     <ul id="category-nav">
-      <li><a href="#" data-target="tab-products" class="active">Products</a></li>
-      <li><a href="#" data-target="tab-diy">DIY Kits</a></li>
+      <li><a href="#shop-start" class="active">Products</a></li>
+      <li><a href="#cat-diy">DIY Kits</a></li>
       <li><a href="#custom-cta">Custom Requests</a></li>
-      <li><a href="#" data-target="tab-bulk">Bulk Orders</a></li>
+      <li><a href="#bulk-orders">Bulk Orders</a></li>
     </ul>
   </aside>
 
-  <div class="shop-content">
+  <div class="shop-content rv" id="shop-start">
+    <h2 class="tab-title">Our Collection</h2>
     
-    <!-- ================= TAB 1: PRODUCTS ================= -->
-    <div id="tab-products" class="tab-content rv in">
-      <h2 class="tab-title">Products</h2>
-      
-      <!-- Sub-section: Top Selling -->
-      <div class="sub-category">
-        <h4>Top Selling</h4>
-        <div class="products-grid">
-          <div class="mock-card" data-desc="A durable, highly detailed 3D printed keychain customized to perfection. Perfect for daily use and keeping your keys organized.">
-            <div class="mock-thumb">
-              <span class="mock-badge accent">Bestseller</span>
-              <img src="Keychain.png" alt="Normal Keychain">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Normal Keychain</span>
-                <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(128)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+    <!-- Sub-section: Top Selling -->
+    <div class="sub-category">
+      <h4>Top Selling</h4>
+      <div class="products-grid">
+        <!-- Notice data-images attribute added for multiple popup images -->
+        <div class="mock-card" data-desc="A durable, highly detailed 3D printed keychain customized to perfection. Perfect for daily use and keeping your keys organized." data-images="Keychain.png,Keychain_alt1.png,Keychain_alt2.png">
+          <div class="mock-thumb">
+            <span class="mock-badge accent">Bestseller</span>
+            <img src="Keychain.png" alt="Normal Keychain">
           </div>
-          
-          <div class="mock-card" data-desc="A beautiful 3D printed track/car frame for F1 enthusiasts. Features sleek lines and striking details, making it the perfect wall or desk art.">
-            <div class="mock-thumb">
-              <img src="F1_frame.png" alt="F1 frame">
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Normal Keychain</span>
+              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(128)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">F1 Frame</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(215)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
-          
-          <div class="mock-card" data-desc="Geometric design planter printed with premium sturdy materials. Features built-in drainage perfect for succulents or indoor plants.">
-            <div class="mock-thumb">
-              <img src="Planter.png" alt="Planter">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Planter</span>
-                <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(312)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+        </div>
+        
+        <div class="mock-card" data-desc="A beautiful 3D printed track/car frame for F1 enthusiasts. Features sleek lines and striking details, making it the perfect wall or desk art." data-images="F1_frame.png,F1_frame_alt1.png">
+          <div class="mock-thumb">
+            <img src="F1_frame.png" alt="F1 frame">
           </div>
-          
-          <div class="mock-card" data-desc="Personalized 3D printed name car. A fantastic desk accessory or gift where your name forms the chassis of the vehicle.">
-            <div class="mock-thumb">
-              <img src="Car.png" alt="Name car">
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">F1 Frame</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(215)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Name Car</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(184)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
+        
+        <div class="mock-card" data-desc="Geometric design planter printed with premium sturdy materials. Features built-in drainage perfect for succulents or indoor plants." data-images="Planter.png,Planter_alt1.png,Planter_alt2.png">
+          <div class="mock-thumb">
+            <img src="Planter.png" alt="Planter">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Planter</span>
+              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(312)</span></span>
             </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
+        
+        <div class="mock-card" data-desc="Personalized 3D printed name car. A fantastic desk accessory or gift where your name forms the chassis of the vehicle." data-images="Car.png,Car_alt1.png">
+          <div class="mock-thumb">
+            <img src="Car.png" alt="Name car">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Name Car</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(184)</span></span>
+            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
         </div>
       </div>
-      
-      <!-- Sub-section: Decor -->
-      <div class="sub-category">
-        <h4>Decor</h4>
-        <div class="products-grid">
-          <div class="mock-card" data-desc="Intricate 3D printed lamp shades that cast beautiful shadows. Available in various geometric and spiral designs to suit any room.">
-            <div class="mock-thumb">
-              <img src="Lamp.png" alt="Lamp">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Lamp (Various Types)</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(84)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+    </div>
+    
+    <!-- Sub-section: Decor -->
+    <div class="sub-category">
+      <h4>Decor</h4>
+      <div class="products-grid">
+        <div class="mock-card" data-desc="Intricate 3D printed lamp shades that cast beautiful shadows. Available in various geometric and spiral designs to suit any room." data-images="Lamp.png,Lamp_alt1.png">
+          <div class="mock-thumb">
+            <img src="Lamp.png" alt="Lamp">
           </div>
-          
-          <div class="mock-card" data-desc="A beautifully crafted, smooth gold owl lamp. Meticulously printed and finished to ensure a clean surface completely free of any fragments or imperfections.">
-            <div class="mock-thumb">
-              <span class="mock-badge">New</span>
-              <img src="Owl.png" alt="Owl Decor">
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Lamp (Various Types)</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(84)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Smooth Gold Owl Lamp</span>
-                <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(42)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
-          </div>
-          
-          <div class="mock-card" data-desc="A striking miniature bust inspired by the Adiyogi statue. Highly detailed print perfect for car dashboards or spiritual decor.">
-            <div class="mock-thumb">
-              <img src="Adiyogi.png" alt="Adiyogi">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Adiyogi Statue</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(511)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
         </div>
-      </div>
-
-      <!-- Sub-section: More Products -->
-      <div class="sub-category">
-        <h4>More Products</h4>
-        <div class="products-grid">
-          <div class="mock-card" data-desc="A stunning, highly detailed 3D printed model of the Endurance spacecraft from Interstellar. The perfect centerpiece for a sci-fi fan's collection.">
-            <div class="mock-thumb">
-              <img src="Endurance.jpeg" alt="Interstellar endurance">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Interstellar Endurance</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(95)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+        
+        <div class="mock-card" data-desc="A beautifully crafted, smooth gold owl lamp. Meticulously printed and finished to ensure a clean surface completely free of any fragments or imperfections." data-images="Owl.png,Owl_alt1.png">
+          <div class="mock-thumb">
+            <span class="mock-badge">New</span>
+            <img src="Owl.png" alt="Owl Decor">
           </div>
-
-          <div class="mock-card" data-desc="A set of sleek 3D printed desk coasters, designed to protect surfaces while adding a modern touch to your workspace.">
-            <div class="mock-thumb">
-              <img src="Coaster_1.jpeg" alt="Coaster">
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Smooth Gold Owl Lamp</span>
+              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(42)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Desk Coaster</span>
-                <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(200)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
+        
+        <div class="mock-card" data-desc="A striking miniature bust inspired by the Adiyogi statue. Highly detailed print perfect for car dashboards or spiritual decor." data-images="Adiyogi.png,Adiyogi_alt.png">
+          <div class="mock-thumb">
+            <img src="Adiyogi.png" alt="Adiyogi">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Adiyogi Statue</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(511)</span></span>
             </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ================= TAB 2: DIY KITS ================= -->
-    <div id="tab-diy" class="tab-content" style="display:none;">
-      <h2 class="tab-title">DIY Kits</h2>
-      
-      <div class="sub-category">
-        <h4>All DIY Kits</h4>
-        <div class="products-grid">
-          <div class="mock-card" data-desc="An engaging DIY kit featuring snap-together mechanisms and gears. Great project for makers and hobbyists.">
-            <div class="mock-thumb">
-              <span class="mock-badge accent">Bestseller</span>
-              <img src="DIY.jpeg" alt="DIY Kit 1">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Robotics Starter Kit</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(112)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+    <!-- Sub-section: DIY Kits (Accessible via sidebar scroll) -->
+    <div id="cat-diy" class="sub-category">
+      <h4>DIY Kits</h4>
+      <div class="products-grid">
+        <div class="mock-card" data-desc="An engaging DIY kit featuring snap-together mechanisms and gears. Great project for makers and hobbyists." data-images="DIY.jpeg,DIY_alt1.jpeg">
+          <div class="mock-thumb">
+            <span class="mock-badge accent">Bestseller</span>
+            <img src="DIY.jpeg" alt="DIY Kit 1">
           </div>
-          
-          <div class="mock-card" data-desc="A build-it-yourself puzzle box with hidden compartments. Comes with all printed parts and a step-by-step assembly guide.">
-            <div class="mock-thumb">
-              <img src="DIY.jpeg" alt="DIY Kit 2">
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Robotics Starter Kit</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(112)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Mechanical Gear Kit</span>
-                <span class="mock-stars">★★★<span class="fade">★★</span> <span class="rating-num">(29)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
-          
-          <div class="mock-card" data-desc="Assemble your own structural model. Includes precision-printed joints and support beams.">
-            <div class="mock-thumb">
-              <img src="DIY.jpeg" alt="DIY Kit 3">
-            </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Structural Maker Kit</span>
-                <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(88)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+        </div>
+        
+        <div class="mock-card" data-desc="A build-it-yourself puzzle box with hidden compartments. Comes with all printed parts and a step-by-step assembly guide." data-images="DIY.jpeg">
+          <div class="mock-thumb">
+            <img src="DIY.jpeg" alt="DIY Kit 2">
           </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Mechanical Gear Kit</span>
+              <span class="mock-stars">★★★<span class="fade">★★</span> <span class="rating-num">(29)</span></span>
+            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
+        
+        <div class="mock-card" data-desc="Assemble your own structural model. Includes precision-printed joints and support beams." data-images="DIY.jpeg">
+          <div class="mock-thumb">
+            <img src="DIY.jpeg" alt="DIY Kit 3">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Structural Maker Kit</span>
+              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(88)</span></span>
+            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
 
-          <div class="mock-card" data-desc="Advanced drone frame assembly kit. Highly durable parts designed to take an impact, ready to be fitted with your electronics.">
-            <div class="mock-thumb">
-              <img src="DIY.jpeg" alt="DIY Kit 4">
+        <div class="mock-card" data-desc="Advanced drone frame assembly kit. Highly durable parts designed to take an impact, ready to be fitted with your electronics." data-images="DIY.jpeg,DIY_alt2.jpeg">
+          <div class="mock-thumb">
+            <img src="DIY.jpeg" alt="DIY Kit 4">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Drone Frame Kit</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(45)</span></span>
             </div>
-            <div class="mock-body">
-              <div class="mock-title-row">
-                <span class="title">Drone Frame Kit</span>
-                <span class="mock-stars">★★★★★ <span class="rating-num">(45)</span></span>
-              </div>
-              <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
-            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
         </div>
       </div>
     </div>
 
-    <!-- ================= TAB 3: BULK ORDERS ================= -->
-    <div id="tab-bulk" class="tab-content" style="display:none;">
-      <h2 class="tab-title">Bulk Orders</h2>
-      <div class="bulk-action-box rv">
+    <!-- Sub-section: More Products -->
+    <div class="sub-category">
+      <h4>More Products</h4>
+      <div class="products-grid">
+        <div class="mock-card" data-desc="A stunning, highly detailed 3D printed model of the Endurance spacecraft from Interstellar. The perfect centerpiece for a sci-fi fan's collection." data-images="Endurance.jpeg,Endurance_alt1.jpeg">
+          <div class="mock-thumb">
+            <img src="Endurance.jpeg" alt="Interstellar endurance">
+          </div>
+          <div class="mock-body">
+            <div class="mock-title-row">
+              <span class="title">Interstellar Endurance</span>
+              <span class="mock-stars">★★★★★ <span class="rating-num">(95)</span></span>
+            </div>
+            <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sub-section: Bulk Orders -->
+    <div id="bulk-orders" class="sub-category">
+      <h4>Bulk Orders</h4>
+      <div class="bulk-action-box">
         <p>For bulk order requests, click below to get in touch with our team</p>
-        <button class="bulk-action-btn" onclick="document.getElementById('custom-cta').scrollIntoView({behavior: 'smooth'})">Get in tooouch!</button>
+        <button class="bulk-action-btn" onclick="window.open('https://wa.me/918368512986?text=' + encodeURIComponent('Hey I am interested in placing a bulk order. Could you share more details?'), '_blank')">Get in touch!</button>
       </div>
     </div>
 
@@ -803,7 +823,13 @@
     </button>
     
     <div class="modal-left">
-      <img id="mImg" src="" alt="Product Image">
+      <div class="m-main-img-wrap">
+        <img id="mImg" src="" alt="Product Image">
+      </div>
+      <!-- Multi-image Thumbnails Section -->
+      <div class="m-thumbs" id="mThumbs">
+        <!-- Thumbs populated by JS -->
+      </div>
     </div>
     
     <div class="modal-right">
@@ -811,7 +837,7 @@
       <div class="modal-stars" id="mStars">★★★★★</div>
       
       <div class="m-section-label">Description</div>
-      <p class="m-desc" id="mDesc">A highly detailed, durable 3D printed piece crafted from premium materials. Perfect for modern spaces, functional setups, or as a unique gift. Designed and produced with strict quality controls.</p>
+      <p class="m-desc" id="mDesc">Description goes here.</p>
       
       <div class="m-section-label">Specifications</div>
       <div class="m-specs">
@@ -821,7 +847,7 @@
       </div>
       
       <div class="m-section-label">Colors available</div>
-      <div class="m-colors">
+      <div class="m-colors" id="mColorsBox">
         <div class="swatch s-white" title="White"></div>
         <div class="swatch s-gray" title="Gray"></div>
         <div class="swatch s-black" title="Black"></div>
@@ -908,14 +934,17 @@
   <div class="wrap">
     <div class="f-grid">
       <div>
-        <div class="f-logo">Forged 3D Prints</div>
+        <div class="f-logo">
+          <svg viewBox="0 0 24 24" style="width:24px; height:24px; fill:var(--accent);"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+          Forged 3D Prints
+        </div>
         <p>A 3D printing studio delivering ready-made products and robust custom print solutions, shipped pan-India.</p>
       </div>
       <div class="f-col">
         <h5>Shop</h5>
-        <a href="#products">Decor & Art</a>
-        <a href="#tab-diy">DIY Kits</a>
-        <a href="#tab-bulk">Bulk Orders</a>
+        <a href="#cat-decor">Decor & Art</a>
+        <a href="#cat-diy">DIY Kits</a>
+        <a href="#bulk-orders">Bulk Orders</a>
       </div>
       <div class="f-col">
         <h5>Studio</h5>
@@ -976,58 +1005,78 @@
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 8);
   }, {passive: true});
-  
-  // Custom Tab Logic for Sidebar
-  const catNavItems = document.querySelectorAll('#category-nav a[data-target]');
-  const tabContents = document.querySelectorAll('.tab-content');
 
+  // Highlight active sidebar item on click
+  const catNavItems = document.querySelectorAll('#category-nav a');
   catNavItems.forEach(item => {
-    item.addEventListener('click', (e) => {
-      e.preventDefault(); 
+    item.addEventListener('click', () => {
       document.querySelectorAll('#category-nav a').forEach(nav => nav.classList.remove('active'));
       item.classList.add('active');
-      
-      tabContents.forEach(tab => {
-        tab.style.display = 'none';
-        tab.classList.remove('in');
-      });
-      
-      const targetId = item.getAttribute('data-target');
-      const targetTab = document.getElementById(targetId);
-      
-      if (targetTab) {
-        targetTab.style.display = 'block';
-        setTimeout(() => { if(!reduceMotion) targetTab.classList.add('in'); }, 30);
-      }
     });
   });
-
-  // Modal Popup Logic
+  
+  // Modal Popup Logic with Multi-Image Support
   const modal = document.getElementById('productModal');
   const mClose = document.getElementById('modalClose');
   const mTitle = document.getElementById('mTitle');
   const mImg = document.getElementById('mImg');
+  const mThumbsContainer = document.getElementById('mThumbs');
   const mStars = document.getElementById('mStars');
   const mDesc = document.getElementById('mDesc');
 
   document.querySelectorAll('.mock-card').forEach(card => {
     card.addEventListener('click', () => {
-      // Pull data from clicked card
       const title = card.querySelector('.title').innerText;
-      const imgSrc = card.querySelector('img').src;
+      const primaryImgSrc = card.querySelector('img').src;
       const descText = card.getAttribute('data-desc') || "A highly detailed, durable 3D printed piece crafted from premium materials. Perfect for modern spaces, functional setups, or as a unique gift.";
       
-      // We grab only the stars, omitting the (number) text in the span
+      // Multi-image string extraction
+      const imgData = card.getAttribute('data-images');
+      const imgArray = imgData ? imgData.split(',').map(s=>s.trim()) : [primaryImgSrc];
+
       const cloneStars = card.querySelector('.mock-stars').cloneNode(true);
       const ratingNum = cloneStars.querySelector('.rating-num');
       if(ratingNum) cloneStars.removeChild(ratingNum);
 
       mTitle.innerText = title;
-      mImg.src = imgSrc;
+      mImg.src = imgArray[0]; // Set initial image
       mStars.innerHTML = cloneStars.innerHTML;
       mDesc.innerText = descText;
       
-      // Show modal
+      // Generate Thumbnails
+      mThumbsContainer.innerHTML = '';
+      if(imgArray.length > 1) {
+        imgArray.forEach((src, idx) => {
+          const th = document.createElement('img');
+          th.src = src;
+          if(idx === 0) th.classList.add('active');
+          th.addEventListener('click', () => {
+            mImg.src = src;
+            Array.from(mThumbsContainer.children).forEach(c => c.classList.remove('active'));
+            th.classList.add('active');
+          });
+          mThumbsContainer.appendChild(th);
+        });
+      }
+
+      // Bind color swatches to change images
+      const swatches = document.querySelectorAll('#mColorsBox .swatch');
+      swatches.forEach((sw, index) => {
+        // Clone to remove old event listeners safely
+        const newSw = sw.cloneNode(true);
+        sw.parentNode.replaceChild(newSw, sw);
+        newSw.addEventListener('click', () => {
+          // Attempt to map color position to image index, fallback to 0
+          const targetSrc = imgArray[index] ? imgArray[index] : imgArray[0];
+          mImg.src = targetSrc;
+          
+          // Update active border on thumbnail based on color click
+          Array.from(mThumbsContainer.children).forEach((c, cIdx) => {
+            c.classList.toggle('active', cIdx === index || (cIdx === 0 && !imgArray[index]));
+          });
+        });
+      });
+      
       modal.style.display = 'flex';
       setTimeout(() => modal.classList.add('open'), 10);
     });
@@ -1043,30 +1092,26 @@
     if(e.target === modal) closeModal(); 
   });
 
-  // WhatsApp Redirect Logic Inside Modal
+  // Updated WhatsApp Redirect Logic inside Modal with structured text template
   const mBtnEnquire = document.getElementById('mBtnEnquire');
   const redirectOverlay = document.getElementById('redirectOverlay');
 
   mBtnEnquire.addEventListener('click', () => {
     const productName = mTitle.innerText;
-    // Customize default message with dynamic product name
-    const waMessage = `Hey I want to enquire/interested in ${productName}`;
+    
+    // Updated Formatted Message for WhatsApp Enquiry
+    const waMessage = `Hey I am interested in: ${productName}\nColor: \nSize: \nCustomizations needed: `;
     const waUrl = `https://wa.me/918368512986?text=${encodeURIComponent(waMessage)}`;
 
-    // Show the redirect overlay
     redirectOverlay.style.display = 'flex';
     setTimeout(() => redirectOverlay.classList.add('active'), 10);
 
-    // Wait 4 seconds, then redirect to WhatsApp
     setTimeout(() => {
       redirectOverlay.classList.remove('active');
       setTimeout(() => redirectOverlay.style.display = 'none', 300);
-      
-      // Deep link to WhatsApp 
       window.location.href = waUrl;
-    }, 2000); // <--- CHANGE THIS NUMBER (e.g., 2000 for 2 seconds, 3000 for 3 seconds) 
+    }, 2000); 
   });
-
 </script>
 </body>
 </html>
