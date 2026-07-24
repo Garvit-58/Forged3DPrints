@@ -102,7 +102,6 @@
     100% { opacity: 1; transform: scale(1); }
   }
 
-  /* Brighter hero images with lower opacity overlay */
   .hero-overlay {
     position: absolute;
     inset: 0;
@@ -212,7 +211,6 @@
   
   .tab-title { font-size:28px; font-weight:700; margin-bottom: 30px; color:var(--ink); }
   
-  /* Sections for smooth scrolling */
   #shop-start, #cat-diy, #bulk-orders, #custom-cta { scroll-margin-top: 100px; }
   .sub-category { margin-bottom: 50px; }
   .sub-category h4 { 
@@ -295,9 +293,12 @@
   }
   .mock-title-row span.title{font-size:15px;font-weight:600;color:var(--ink); line-height: 1.3;}
   
-  .mock-stars { color:var(--accent); font-size:12px; letter-spacing:1px; display: flex; align-items: center; gap: 6px; }
-  .mock-stars .fade { color:var(--line); }
-  .rating-num { color: var(--gray); font-size: 11px; font-weight: 500; letter-spacing: 0; }
+  /* STAR RATING FIX */
+  .mock-stars { color:var(--accent); font-size:14px; letter-spacing:2px; display: flex; align-items: center; }
+  .modal-stars { color: var(--accent); font-size: 16px; letter-spacing: 2px; margin-bottom: 24px; display: flex; align-items: center; }
+  /* Removed 'gap' to fix the spacing issue, added margin-left to the number instead */
+  .mock-stars .fade, .modal-stars .fade { color: #63636b; } /* Adjusted fade color for perfect visibility */
+  .rating-num { color: var(--gray); font-size: 11px; font-weight: 500; letter-spacing: 0; margin-left: 8px; }
   
   .mock-actions{display:flex;gap:10px; pointer-events: auto;}
   .mock-btn{
@@ -363,7 +364,6 @@
     margin-bottom: 20px;
     overflow: hidden;
   }
-  /* Aspect ratio fixed by using object-fit contain */
   .m-main-img-wrap img { width: 100%; height: 100%; object-fit: contain; }
   
   .m-thumbs {
@@ -378,7 +378,6 @@
 
   .modal-right { flex: 1; padding: 40px 32px; display: flex; flex-direction: column; overflow-y: auto; max-height: 90vh;}
   .modal-right h3 { font-size: 26px; font-weight: 700; margin-bottom: 8px; line-height: 1.2; }
-  .modal-stars { color: var(--accent); font-size: 14px; letter-spacing: 2px; margin-bottom: 24px; display: flex; align-items: center; gap: 8px; }
   
   .m-section-label { font-size: 13px; color: var(--gray); font-weight: 600; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.05em; }
   .m-desc { font-size: 14.5px; color: var(--ink); line-height: 1.6; margin-bottom: 24px; }
@@ -557,7 +556,6 @@
 <header id="siteHeader">
   <nav>
     <a href="#" class="logo">
-      <!-- Added Logo Icon -->
       <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
       </svg>
@@ -574,7 +572,6 @@
     <img src="https://images.unsplash.com/photo-1613511874457-30752103328e?auto=format&fit=crop&w=1600&q=80" alt="3D Print 2">
     <img src="https://images.unsplash.com/photo-1518199268839-3ce1a5f6e80b?auto=format&fit=crop&w=1600&q=80" alt="3D Print 3">
   </div>
-  <!-- Opacity reduced in CSS to make background images more visible -->
   <div class="hero-overlay"></div>
   <div class="hero-text rv">
     <h1>Your Vision,<br> 3D Printed.</h1>
@@ -587,14 +584,12 @@
   <div class="marquee-title">Our happy count!</div>
   <div class="marquee-container">
     <div class="marquee-track">
-      <!-- Shorter list, updated numbers -->
       <div class="marquee-item">Keychain - 150 happy customers</div>
       <div class="marquee-item">Planters - 42 happy customers</div>
       <div class="marquee-item">Custom Trophies - 38 happy customers</div>
       <div class="marquee-item">Drone Mounts - 45 happy customers</div>
       <div class="marquee-item">Lamps - 33 happy customers</div>
       
-      <!-- Duplicated for seamless loop -->
       <div class="marquee-item">Keychain - 150 happy customers</div>
       <div class="marquee-item">Planters - 42 happy customers</div>
       <div class="marquee-item">Custom Trophies - 38 happy customers</div>
@@ -606,7 +601,6 @@
 
 <!-- ============ SHOP LAYOUT ============ -->
 <div class="shop-container" id="products">
-  <!-- Original Sidebar Restored -->
   <aside class="sidebar rv">
     <ul id="category-nav">
       <li><a href="#shop-start" class="active">Products</a></li>
@@ -623,7 +617,6 @@
     <div class="sub-category">
       <h4>Top Selling</h4>
       <div class="products-grid">
-        <!-- Notice data-images attribute added for multiple popup images -->
         <div class="mock-card" data-desc="A durable, highly detailed 3D printed keychain customized to perfection. Perfect for daily use and keeping your keys organized." data-images="Keychain.png,Keychain_alt1.png,Keychain_alt2.png">
           <div class="mock-thumb">
             <span class="mock-badge accent">Bestseller</span>
@@ -632,7 +625,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Normal Keychain</span>
-             <span class="mock-stars">★★★★★ <span class="rating-num">(215)</span></span>
+              <span class="mock-stars">★★★★<span class="fade">★</span><span class="rating-num">(128)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -645,7 +638,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">F1 Frame</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(215)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(215)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -658,7 +651,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Planter</span>
-              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(312)</span></span>
+              <span class="mock-stars">★★★★<span class="fade">★</span><span class="rating-num">(312)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -671,7 +664,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Name Car</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(184)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(184)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -690,7 +683,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Lamp (Various Types)</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(84)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(84)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -704,7 +697,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Smooth Gold Owl Lamp</span>
-              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(42)</span></span>
+              <span class="mock-stars">★★★★<span class="fade">★</span><span class="rating-num">(42)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -717,7 +710,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Adiyogi Statue</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(511)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(511)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -725,7 +718,7 @@
       </div>
     </div>
 
-    <!-- Sub-section: DIY Kits (Accessible via sidebar scroll) -->
+    <!-- Sub-section: DIY Kits -->
     <div id="cat-diy" class="sub-category">
       <h4>DIY Kits</h4>
       <div class="products-grid">
@@ -737,7 +730,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Robotics Starter Kit</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(112)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(112)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -750,7 +743,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Mechanical Gear Kit</span>
-              <span class="mock-stars">★★★<span class="fade">★★</span> <span class="rating-num">(29)</span></span>
+              <span class="mock-stars">★★★<span class="fade">★★</span><span class="rating-num">(29)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -763,7 +756,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Structural Maker Kit</span>
-              <span class="mock-stars">★★★★<span class="fade">★</span> <span class="rating-num">(88)</span></span>
+              <span class="mock-stars">★★★★<span class="fade">★</span><span class="rating-num">(88)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -776,7 +769,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Drone Frame Kit</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(45)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(45)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -795,7 +788,7 @@
           <div class="mock-body">
             <div class="mock-title-row">
               <span class="title">Interstellar Endurance</span>
-              <span class="mock-stars">★★★★★ <span class="rating-num">(95)</span></span>
+              <span class="mock-stars">★★★★★<span class="rating-num">(95)</span></span>
             </div>
             <div class="mock-actions"><button class="mock-btn solid">Enquire now</button></div>
           </div>
@@ -834,6 +827,7 @@
     
     <div class="modal-right">
       <h3 id="mTitle">Product Title</h3>
+      <!-- This rating element copies perfectly from the card via JS -->
       <div class="modal-stars" id="mStars">★★★★★</div>
       
       <div class="m-section-label">Description</div>
@@ -1062,15 +1056,12 @@
       // Bind color swatches to change images
       const swatches = document.querySelectorAll('#mColorsBox .swatch');
       swatches.forEach((sw, index) => {
-        // Clone to remove old event listeners safely
         const newSw = sw.cloneNode(true);
         sw.parentNode.replaceChild(newSw, sw);
         newSw.addEventListener('click', () => {
-          // Attempt to map color position to image index, fallback to 0
           const targetSrc = imgArray[index] ? imgArray[index] : imgArray[0];
           mImg.src = targetSrc;
           
-          // Update active border on thumbnail based on color click
           Array.from(mThumbsContainer.children).forEach((c, cIdx) => {
             c.classList.toggle('active', cIdx === index || (cIdx === 0 && !imgArray[index]));
           });
@@ -1109,7 +1100,7 @@
     setTimeout(() => {
       redirectOverlay.classList.remove('active');
       setTimeout(() => redirectOverlay.style.display = 'none', 300);
-      window.location.href = waUrl;
+      window.open(waUrl, '_blank');
     }, 2000); 
   });
 </script>
