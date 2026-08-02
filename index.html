@@ -127,7 +127,7 @@
             gap: 8px;
         }
         .logo img {
-            height: 32px;    /* increased for better visibility */
+            height: 32px;
             width: auto;
             display: block;
         }
@@ -909,7 +909,7 @@
             letter-spacing: -0.02em;
         }
         .f-logo img {
-            height: 36px;    /* increased for better visibility */
+            height: 36px;
             width: auto;
             display: block;
         }
@@ -1222,11 +1222,11 @@
                 </div>
             </div>
 
-            <!-- Planter – now only white -->
+            <!-- Planter – now white and black -->
             <div class="mock-card"
             data-desc="Give your plants a modern home with our uniquely designed 3D-printed planter. Lightweight, durable, and perfect for adding a touch of greenery to any space."
             data-images="Planter.png,PlanterBlack.png"
-            data-colors="white"
+            data-colors="white,black"
             data-len="14cm" data-bre="14cm" data-hei="26cm">
             <div class="mock-thumb">
                 <img src="Planter.png" alt="Planter" loading="lazy">
@@ -1266,11 +1266,11 @@
 <div class="sub-category">
     <h4>Decor</h4>
     <div class="products-grid">
-        <!-- Table Lamp – now only white -->
+        <!-- Table Lamp – color removed -->
         <div class="mock-card"
         data-desc="Brighten your space with a uniquely designed 3D-printed table lamp. A perfect blend of modern aesthetics and functional lighting for your home or workspace."
         data-images="Lamp.png,Lamp2.png"
-        data-colors="white"
+        data-colors=""
         data-len="9.4cm" data-bre="9.4cm" data-hei="13.3cm">
         <div class="mock-thumb">
             <img src="Lamp.png" alt="Lamp" loading="lazy">
@@ -1285,11 +1285,11 @@
         </div>
     </div>
 
-    <!-- Smooth Gold Owl Lamp – now only white -->
+    <!-- Smooth Gold Owl Lamp – color removed -->
     <div class="mock-card"
     data-desc="Add warmth and character to your room with our beautifully crafted Owl Lamp. Designed to create a cozy ambience while doubling as a unique décor piece."
     data-images="Owl.jpeg,Owl2.png"
-    data-colors="white"
+    data-colors=""
     data-len="4.3cm" data-bre="5cm" data-hei="6.1cm">
     <div class="mock-thumb">
         <span class="mock-badge">New</span>
@@ -1305,11 +1305,11 @@
     </div>
 </div>
 
-<!-- Logo Lamp – now only white -->
+<!-- Logo Lamp – color removed -->
 <div class="mock-card"
 data-desc="Showcase your brand in style with a custom logo lamp. Ideal for offices, reception areas, exhibitions, or as a premium corporate gift."
 data-images="LogoLamp.png,LogoLamp2.png"
-data-colors="white"
+data-colors=""
 data-len="6.2cm" data-bre="8.7cm" data-hei="7cm">
 <div class="mock-thumb">
     <span class="mock-badge">New</span>
@@ -1682,6 +1682,23 @@ data-len="20cm" data-bre="16cm" data-hei="14cm">
     const mBtnEnquire = document.getElementById('mBtnEnquire');
     const redirectOverlay = document.getElementById('redirectOverlay');
 
+    // ===== PRODUCT-SPECIFIC WHATSAPP MESSAGES =====
+    const productMessages = {
+        "Name Keychain": "Hi! I'm interested in ordering a Normal Keychain.\nName to be engraved: ",
+        "F1 Frame": "Hi! I'm interested in ordering an F1 Frame.\nName to be printed: ",
+        "Planter": "Hi! I'm interested in ordering a Planter. Please share the available options and pricing.",
+        "Name Car": "Hi! I'm interested in ordering a Name Car.\nCar Brand & Model:\nRegistration Number: \nRegistration Year:",
+        "Table Lamp": "Hi! I'm interested in ordering a Table Lamp. Please share the available options and pricing.",
+        "Smooth Owl Lamp": "Hi! I'm interested in ordering an Owl Lamp. Please share the available options and pricing.",
+        "Logo Lamp": "Hi! I'm interested in ordering a Logo Lamp.\nCompany Name:\nI'll attach my company logo in this chat.",
+        "Adiyogi Statue": "Hi! I'm interested in ordering an Adiyogi Statue. Please share the available options and pricing.",
+        "Boat DIY Kit": "Hi! I'm interested in ordering a DIY Kit. Please share the available options and pricing.",
+        "Shinchan DIY Kit": "Hi! I'm interested in ordering a DIY Kit. Please share the available options and pricing.",
+        "Goku DIY Kit": "Hi! I'm interested in ordering a DIY Kit. Please share the available options and pricing.",
+        "Doraemon DIY Kit": "Hi! I'm interested in ordering a DIY Kit. Please share the available options and pricing.",
+        "Interstellar Endurance": "Hi! I'm interested in ordering the Interstellar Endurance model. Please share the available options and pricing."
+    };
+
     document.querySelectorAll('.mock-card').forEach(card => {
         card.addEventListener('click', () => {
             const title = card.querySelector('.title').innerText;
@@ -1766,10 +1783,11 @@ data-len="20cm" data-bre="16cm" data-hei="14cm">
         if (e.target === modal) closeModal();
     });
 
-    // ===== WHATSAPP ENQUIRE (with redirect overlay) =====
+    // ===== WHATSAPP ENQUIRE (with redirect overlay + product-specific messages) =====
     mBtnEnquire.addEventListener('click', () => {
         const productName = mTitle.innerText;
-        const waMessage =
+        // Use the product-specific message if available, otherwise fallback to generic
+        const waMessage = productMessages[productName] ||
             `Hey I am interested in: ${productName}\nColor: \nSize: \nCustomizations needed: `;
         const waUrl = `https://wa.me/918368512986?text=${encodeURIComponent(waMessage)}`;
 
